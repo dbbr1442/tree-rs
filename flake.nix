@@ -44,6 +44,7 @@
 
       cargoLock = {
         outputHashes = {
+          "lesbian-parser-0.1.0" = "sha256-sY/jLFCLlZu39LvJKsohDZyEpYRvt9xjYA8YrdOyRoc=";
         };
         lockFile = ./Cargo.lock;
       };

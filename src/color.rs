@@ -1,4 +1,4 @@
-use std::{fmt::Display, ops::Deref};
+#![allow(unused)]
 
 pub trait GetEscape {
     fn get_bg(&self) -> String;
