@@ -5,7 +5,7 @@ version = 4
 [[package]]
 name = "lesbian-parser"
 version = "0.1.0"
-source = "git+https://github.com/dbbr1442/lesbian-parser.git#c344565a5d90dd88412a31e612b4e1d5bf7a7133"
+source = "git+https://github.com/dbbr1442/lesbian-parser.git#e4bb4a97a608a8879665fc95ae2b3f14c36b4ebb"
 
 [[package]]
 name = "tree-rs"

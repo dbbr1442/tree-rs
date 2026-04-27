@@ -13,14 +13,14 @@ mod color;
 struct Options {
     full_paths: bool,
     absolute_paths: bool,
-    depth: u32,
+    depth: Option<u32>,
     root_path: PathBuf,
     follow_links: bool,
 }
 
 impl Parse for Options {
     fn default_args() -> Self {
-        Self { full_paths: false, absolute_paths: false, root_path: PathBuf::from_str(".").unwrap(), depth: u32::MAX, follow_links: false }
+        Self { full_paths: false, absolute_paths: false, root_path: PathBuf::from_str(".").unwrap(), depth: None, follow_links: false }
     }
     fn add_flags<'a>(&'a mut self, parser: &mut lesbian_parser::ParserData<'a>) {
         parser.add_arg(ArgumentData::new_with_short("--full-paths", "-f", false, &mut self.full_paths));
@@ -42,13 +42,7 @@ fn main() {
 
     println!("{:?}", options);
 
-    let depth_budget = if options.depth == u32::MAX {
-        None
-    } else {
-        Some(options.depth)
-    };
-
-    let root_node = Node::from_path(&options.root_path, depth_budget, &options).unwrap();
+    let root_node = Node::from_path(&options.root_path, options.depth, &options).unwrap();
     root_node.print_root(&options);
 }
 
@@ -284,6 +278,10 @@ impl Node {
                                 },
                                 Err(e) => {
                                     let (path, err) = e.assume_err();
+                                    match path {
+                                        Some(path) => println!("{prefix}{link}{}{normal} -> {error}{}{normal}", path.display(), err),
+                                        None => println!("{prefix}{error}{}{normal}", err),
+                                    }
                                 },
                             };
                         },
